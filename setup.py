@@ -68,5 +68,5 @@ setup(name='tweetstream-requests',
     include_package_data=True,
     zip_safe=False,
     platforms=["any"],
-    install_requires=['anyjson', 'requests>=1.0.0,<=1.1.0'],
+    install_requires=['anyjson', 'requests>=1.0.0,<=1.2.0'],
 )
