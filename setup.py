@@ -1,10 +1,4 @@
-import sys
 import os
-
-# extra = {}
-# if sys.version_info >= (3, 0):
-#     extra.update(use_2to3=True)
-
 
 try:
     from setuptools import setup, find_packages
@@ -64,8 +58,6 @@ setup(name='tweetstream',
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        # 'Programming Language :: Python :: 3',
-        # 'Programming Language :: Python :: 3.1',
     ],
     keywords='twitter',
     author=meta["author"],
@@ -77,5 +69,4 @@ setup(name='tweetstream',
     zip_safe=False,
     platforms=["any"],
     install_requires=['anyjson', 'requests>=1.0.0,<=1.1.0'],
-#    **extra
 )
