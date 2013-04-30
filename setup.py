@@ -49,7 +49,7 @@ finally:
     meta_fh.close()
 
 
-setup(name='tweetstream',
+setup(name='tweetstream-requests',
     version=meta["VERSION"],
     description=meta["doc"],
     long_description=open("README.rst").read(),
