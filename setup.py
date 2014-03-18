@@ -9,7 +9,7 @@ except ImportError:
 
 setup(
     name='tweetstream-requests',
-    version='1.2.2',
+    version='1.2.3',
     description="Simple access to Twitter's streaming API",
     long_description=open('README.md').read(),
     packages=['tweetstream'],
