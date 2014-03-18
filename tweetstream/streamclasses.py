@@ -5,11 +5,15 @@ import json
 import ssl
 
 import requests
+try:
+    from http.client import IncompleteRead
+except ImportError:
+    from httplib import IncompleteRead
 
 from . import USER_AGENT
 from .exceptions import (
     ReconnectImmediatelyError, ReconnectLinearlyError, EnhanceYourCalmError,
-    ReconnectExponentiallyError, AuthenticationError
+    ReconnectExponentiallyError, AuthenticationError, FatalError,
 )
 
 
@@ -129,7 +133,9 @@ class BaseStream(object):
             if code == 401:
                 raise AuthenticationError("Access denied")
             elif code == 404:
-                raise ReconnectExponentiallyError("%s: %s" % (self.url, e))
+                raise FatalError("%s: %s" % (self.url, e))
+            elif code in (406, 413, 416):
+                raise FatalError(str(e))
             elif code == 420:
                 raise EnhanceYourCalmError
             else:
@@ -203,6 +209,8 @@ class BaseStream(object):
                     raise
                 else:
                     raise ReconnectImmediatelyError("Stream timed out.")
+        except IncompleteRead as e:
+            raise ReconnectImmediatelyError(str(e))
 
         raise ReconnectImmediatelyError("Server disconnected.")
 
@@ -231,6 +239,9 @@ class FilterStream(BaseStream):
     def __init__(self, auth=None, follow=None, locations=None,
                  track=None, catchup=None, parse_json=True,
                  decode_unicode=True, timeout=90, url=None):
+        if not track and not follow:
+            raise ValueError('Must specify at least one track or follow.')
+
         self.parameters = dict(
             track=track, follow=follow, locations=locations
         )
