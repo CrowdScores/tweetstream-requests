@@ -6,10 +6,9 @@ except ImportError:
     from distutils.core import setup
 
 
-
 setup(
     name='tweetstream-requests',
-    version='1.2.3',
+    version='1.2.4',
     description="Simple access to Twitter's streaming API",
     long_description=open('README.md').read(),
     packages=['tweetstream'],
